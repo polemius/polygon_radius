@@ -9,10 +9,10 @@
   let radius = 20;
 
   $: points = [
-    { x: 0, y: 0, isRadius: false, unit: "px" },
-    { x: 400, y: 0, isRadius: false, unit: "px" },
-    { x: 400, y: 200, isRadius: false, unit: "px" },
-    { x: 0, y: 200, isRadius: false, unit: "px" }
+    { x: 20, y: 20, isRadius: true, unit: "px" },
+    { x: 400, y: 0, isRadius: true, unit: "px" },
+    { x: 400, y: 200, isRadius: true, unit: "px" },
+    { x: 0, y: 200, isRadius: true, unit: "px" }
   ];
 
   let handleOnChange = (event, key, i) => {
@@ -31,10 +31,8 @@
     const indexAfter = index === points.length - 1 ? 0 : index + 1;
     const Aprim = point;
     const Bprim = points[indexAfter];
-    const Cprim = point;
-    const Dprim = points[indexBefore];
-    console.log({Aprim, Bprim, Cprim, Dprim})
-    const radiusPoints = getRadiusPoints(Aprim, Bprim, Cprim, Dprim, radius, 400, index > 1 ? Aprim.y : 200, 200);
+    const Cprim = points[indexBefore];
+    const radiusPoints = getRadiusPoints(Aprim, Bprim, Cprim, radius, 400, 200);
 
     return [...acc, ...radiusPoints];
   }, []);
@@ -45,10 +43,6 @@
 
 <style>
   .home {
-    /* text-align: center;
-    padding: 1em;
-    max-width: 240px;
-    margin: 0 auto; */
     display: flex;
     flex-direction: column;
   }
@@ -68,12 +62,17 @@
   }
 
   .home__image_container {
-    padding: 30px;
+    padding: 40px;
     background-color: rgba(40, 40, 40, 0.1);
   }
   .home__image_container__image {
     height: 200px;
     width: 400px;
+  }
+  .home__image_container__placeholder {
+    height: 200px;
+    width: 400px;
+    background-color: rgba(26,10,145, 0.3);
   }
 
   .home__controls {
@@ -120,11 +119,10 @@
   <h1 class="home__title">Radius polygon</h1>
   <div class="home__container">
     <div class="home__image_container">
-      <img
-        class="home__image_container__image"
+      <div
+        class="home__image_container__placeholder"
         style={imageStyle}
-        src="http://placekitten.com/g/400/200"
-        alt="Image for position points for polygon from clip-path" />
+        />
     </div>
     <div class="home__controls">
       <p class="home__controls__title">Points</p>
