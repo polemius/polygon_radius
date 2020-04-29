@@ -33,7 +33,7 @@ function getProportionPoint(point, segment, length, dx, dy) {
     }
 }
 
-function getRadiusPoints(angularPoint, p1, p2, radius, width, height) {
+function getRadiusPoints(angularPoint, p1, p2, radius, width, height, step) {
     // Algorithm from here https://stackoverflow.com/questions/24771828/algorithm-for-creating-rounded-corners-in-a-polygon#answer-24780108
     // Vector 1
     const dx1 = angularPoint.x - p1.x;
@@ -108,7 +108,7 @@ function getRadiusPoints(angularPoint, p1, p2, radius, width, height) {
     }
 
     const circlePoints = []
-    for (let angle = startAngleDeg; angle < endAngleDeg; angle = angle + 10) {
+    for (let angle = startAngleDeg; angle < endAngleDeg; angle = angle + step) {
         const [x, y] = pointsOnCircle(radius, angle, circlePoint.x, circlePoint.y);
         circlePoints.push({ x: toPercent(x, width), y: toPercent(y, height), unit: '%' })
     }

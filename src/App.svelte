@@ -7,12 +7,13 @@
   let circlePoints = [];
   let points = [];
   let radius = 20;
+  let step = 10;
 
   $: points = [
-    { x: 20, y: 20, isRadius: true, unit: "px" },
+    { x: 0, y: 40, isRadius: true, unit: "px" },
     { x: 400, y: 0, isRadius: true, unit: "px" },
     { x: 400, y: 200, isRadius: true, unit: "px" },
-    { x: 0, y: 200, isRadius: true, unit: "px" }
+    { x: 0, y: 160, isRadius: true, unit: "px" }
   ];
 
   let handleOnChange = (event, key, i) => {
@@ -32,7 +33,7 @@
     const Aprim = point;
     const Bprim = points[indexAfter];
     const Cprim = points[indexBefore];
-    const radiusPoints = getRadiusPoints(Aprim, Bprim, Cprim, radius, 400, 200);
+    const radiusPoints = getRadiusPoints(Aprim, Bprim, Cprim, radius, 400, 200, step);
 
     return [...acc, ...radiusPoints];
   }, []);
@@ -50,7 +51,7 @@
   .home__title {
     color: #ff3e00;
     text-transform: uppercase;
-    font-size: 4em;
+    font-size: 3em;
     font-weight: 100;
     text-align: center;
   }
@@ -65,14 +66,10 @@
     padding: 40px;
     background-color: rgba(40, 40, 40, 0.1);
   }
-  .home__image_container__image {
-    height: 200px;
-    width: 400px;
-  }
   .home__image_container__placeholder {
     height: 200px;
     width: 400px;
-    background-color: rgba(26,10,145, 0.3);
+    background-color: rgba(26, 10, 145, 0.3);
   }
 
   .home__controls {
@@ -103,6 +100,10 @@
     margin: 0 5px;
   }
 
+  .home__controls__control__unit {
+    margin-right: auto;
+  }
+
   .home__result_container {
     text-align: center;
     margin-top: 30px;
@@ -116,13 +117,10 @@
 </style>
 
 <main class="home">
-  <h1 class="home__title">Radius polygon</h1>
+  <h1 class="home__title">Generate polygon<br/> with rounded corners</h1>
   <div class="home__container">
     <div class="home__image_container">
-      <div
-        class="home__image_container__placeholder"
-        style={imageStyle}
-        />
+      <div class="home__image_container__placeholder" style={imageStyle} />
     </div>
     <div class="home__controls">
       <p class="home__controls__title">Points</p>
@@ -135,6 +133,21 @@
           class="home__controls__control__input"
           id="set_radius"
           bind:value={radius} />
+        <span class="home__controls__control__unit">px</span>
+      </div>
+      <div class="home__controls__control">
+        <label class="home__controls__control__label" for="set_step">
+          Step:
+        </label>
+        <input
+          type="tel"
+          class="home__controls__control__input
+          home__controls__control__input--left"
+          id="set_step"
+          value={step}
+          on:change={event => step = Number(event.target.value)}
+           />
+        <span class="home__controls__control__unit">°</span>
       </div>
       {#each points as { x, y }, i}
         <div class="home__controls__control">
@@ -169,7 +182,5 @@
       {/each}
     </div>
   </div>
-  <div class="home__result_container">
-    {imageStyle}
-  </div>
+  <div class="home__result_container">{imageStyle}</div>
 </main>
