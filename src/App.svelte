@@ -9,6 +9,22 @@
   let radius = 20;
   let step = 10;
 
+  const changeStep = (s) => {
+    const ns = Number(s)
+    if (isNaN(ns) || ns < 0) {
+      return 1
+    }
+    return ns > 180 ? 180 : ns
+  }
+
+  const changeRadius = (r) => {
+    const nr = Number(r)
+    if (isNaN(r) || r < 0) {
+      return 1
+    }
+    return nr > 200 ? 200 : nr
+  }
+
   $: points = [
     { x: 0, y: 40, isRadius: true, unit: "px" },
     { x: 400, y: 0, isRadius: true, unit: "px" },
@@ -132,7 +148,9 @@
           type="tel"
           class="home__controls__control__input"
           id="set_radius"
-          bind:value={radius} />
+          value={radius}
+          on:change={event => radius = changeRadius(event.target.value)}
+           />
         <span class="home__controls__control__unit">px</span>
       </div>
       <div class="home__controls__control">
@@ -145,7 +163,7 @@
           home__controls__control__input--left"
           id="set_step"
           value={step}
-          on:change={event => step = Number(event.target.value)}
+          on:change={event => step = changeStep(event.target.value)}
            />
         <span class="home__controls__control__unit">°</span>
       </div>
