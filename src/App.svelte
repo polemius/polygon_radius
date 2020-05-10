@@ -79,8 +79,11 @@
   }
 
   .home__image_container {
-    padding: 40px;
     background-color: rgba(40, 40, 40, 0.1);
+    position: relative;
+    height: 200px;
+    margin-top: auto;
+    margin-bottom: auto;
   }
   .home__image_container__placeholder {
     height: 200px;
